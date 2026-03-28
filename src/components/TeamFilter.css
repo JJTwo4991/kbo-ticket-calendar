@@ -3,8 +3,20 @@
   background-color: var(--toss-white);
   border-bottom: 1px solid var(--toss-gray-200);
   padding: 10px 0 11px;
-  /* Prevent content flash during scroll */
-  will-change: transform;
+  overflow: hidden;
+}
+
+.team-filter__section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--toss-gray-400);
+  padding: 0 16px;
+  margin-bottom: 6px;
+  letter-spacing: -0.1px;
+}
+
+.team-filter__section-label:not(:first-child) {
+  margin-top: 8px;
 }
 
 .team-filter__scroll {
@@ -87,6 +99,20 @@
 .team-filter__chip--all-active:hover {
   background-color: var(--toss-gray-800);
   border-color: var(--toss-gray-800);
+  opacity: 1;
+}
+
+/* Stadium active chip: toss blue */
+.team-filter__chip--stadium-active {
+  background-color: var(--toss-blue);
+  border-color: var(--toss-blue);
+  color: var(--toss-white);
+  box-shadow: 0 2px 8px rgba(49, 130, 246, 0.25);
+}
+
+.team-filter__chip--stadium-active:hover {
+  background-color: var(--toss-blue-dark);
+  border-color: var(--toss-blue-dark);
   opacity: 1;
 }
 

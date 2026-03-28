@@ -4,7 +4,7 @@ import GameList from './components/GameList'
 import TeamFilter from './components/TeamFilter'
 import MyTeamSetup from './components/MyTeamSetup'
 import AlertSettings from './components/AlertSettings'
-import { teams } from './data/teams'
+import { teams, stadiumGroups } from './data/teams'
 import scheduleData from './data/schedule.json'
 import type { RawGame, Game, AlertSettingsData } from './types'
 import { setupBackHandler, parseDeepLink } from './lib/toss-bridge'
@@ -56,6 +56,9 @@ export default function App() {
   const [viewTeam, setViewTeam] = useState<string | null>(() => {
     return localStorage.getItem('kbo-my-team')
   })
+
+  // 구장/지역 필터
+  const [viewStadium, setViewStadium] = useState<string | null>(null)
 
   const [showAlertSettings, setShowAlertSettings] = useState(false)
 
@@ -113,11 +116,25 @@ export default function App() {
     }
   }, [myTeam, viewTeam])
 
-  // Filter games by viewTeam
+  // Filter games by viewTeam + viewStadium
   const filteredGames = useMemo(() => {
-    if (!viewTeam) return allGames
-    return allGames.filter((g) => g.home === viewTeam || g.away === viewTeam)
-  }, [allGames, viewTeam])
+    let games = allGames
+
+    // 팀 필터
+    if (viewTeam) {
+      games = games.filter((g) => g.home === viewTeam || g.away === viewTeam)
+    }
+
+    // 구장/지역 필터
+    if (viewStadium) {
+      const group = stadiumGroups.find((sg) => sg.id === viewStadium)
+      if (group) {
+        games = games.filter((g) => group.stadiums.includes(g.stadium ?? ''))
+      }
+    }
+
+    return games
+  }, [allGames, viewTeam, viewStadium])
 
   // Game dates in current month (for calendar dots)
   const gameDatesInMonth = useMemo(() => {
@@ -148,7 +165,10 @@ export default function App() {
 
   function handleTeamChange(teamId: string | null) {
     setViewTeam(teamId)
-    // If switching to a team with games, keep current date or let user pick
+  }
+
+  function handleStadiumChange(stadiumId: string | null) {
+    setViewStadium(stadiumId)
   }
 
   function handleToggleAlert(gameId: string) {
@@ -199,6 +219,8 @@ export default function App() {
           viewTeam={viewTeam}
           myTeam={myTeam}
           onTeamChange={handleTeamChange}
+          viewStadium={viewStadium}
+          onStadiumChange={handleStadiumChange}
         />
 
         {/* Calendar */}

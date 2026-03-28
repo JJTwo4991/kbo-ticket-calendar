@@ -103,6 +103,25 @@ export const teams: Record<string, TeamInfo> = {
 
 export const teamIds = ['SSG', 'LG', '두산', '키움', 'KT', 'NC', '삼성', '롯데', '한화', 'KIA'];
 
+// 구장별 지역 그룹 (schedule.json의 stadium 값과 매칭)
+export interface StadiumInfo {
+  id: string;
+  name: string;
+  city: string;
+  stadiums: string[]; // schedule.json의 stadium 필드 값들
+}
+
+export const stadiumGroups: StadiumInfo[] = [
+  { id: 'seoul', name: '서울', city: '서울', stadiums: ['서울종합운동장 야구장', '고척스카이돔'] },
+  { id: 'incheon', name: '인천', city: '인천', stadiums: ['인천SSG랜더스필드'] },
+  { id: 'suwon', name: '수원', city: '수원', stadiums: ['수원KT위즈파크'] },
+  { id: 'daejeon', name: '대전', city: '대전', stadiums: ['대전한화생명이글스파크'] },
+  { id: 'daegu', name: '대구', city: '대구', stadiums: ['대구삼성라이온즈파크'] },
+  { id: 'changwon', name: '창원', city: '창원', stadiums: ['창원NC파크'] },
+  { id: 'gwangju', name: '광주', city: '광주', stadiums: ['광주기아챔피언스필드'] },
+  { id: 'busan', name: '부산', city: '부산', stadiums: ['사직야구장'] },
+];
+
 export function getTeamInfo(teamId: string): TeamInfo | undefined {
   return teams[teamId];
 }

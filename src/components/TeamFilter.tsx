@@ -1,17 +1,22 @@
-import { teamIds, teams } from '../data/teams'
+import { teamIds, teams, stadiumGroups } from '../data/teams'
 import './TeamFilter.css'
 
 interface TeamFilterProps {
   viewTeam: string | null
   myTeam: string | null
   onTeamChange: (teamId: string | null) => void
+  viewStadium: string | null
+  onStadiumChange: (stadiumId: string | null) => void
 }
 
-export default function TeamFilter({ viewTeam, myTeam, onTeamChange }: TeamFilterProps) {
+export default function TeamFilter({
+  viewTeam, myTeam, onTeamChange, viewStadium, onStadiumChange,
+}: TeamFilterProps) {
   return (
     <div className="team-filter">
+      {/* 팀 필터 */}
+      <div className="team-filter__section-label">팀</div>
       <div className="team-filter__scroll">
-        {/* 전체 chip */}
         <button
           className={`team-filter__chip${viewTeam === null ? ' team-filter__chip--all-active' : ''}`}
           onClick={() => onTeamChange(null)}
@@ -20,7 +25,6 @@ export default function TeamFilter({ viewTeam, myTeam, onTeamChange }: TeamFilte
           전체
         </button>
 
-        {/* 내 구단 chip */}
         {myTeam && (
           <button
             className={`team-filter__chip${viewTeam === myTeam ? ' team-filter__chip--active' : ''}`}
@@ -40,7 +44,6 @@ export default function TeamFilter({ viewTeam, myTeam, onTeamChange }: TeamFilte
           </button>
         )}
 
-        {/* All 10 team chips */}
         {teamIds.map((teamId) => {
           const team = teams[teamId]
           const isActive = viewTeam === teamId
@@ -53,6 +56,32 @@ export default function TeamFilter({ viewTeam, myTeam, onTeamChange }: TeamFilte
               aria-pressed={isActive}
             >
               {team.shortName}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* 구장/지역 필터 */}
+      <div className="team-filter__section-label">지역</div>
+      <div className="team-filter__scroll">
+        <button
+          className={`team-filter__chip${viewStadium === null ? ' team-filter__chip--all-active' : ''}`}
+          onClick={() => onStadiumChange(null)}
+          aria-pressed={viewStadium === null}
+        >
+          전체
+        </button>
+
+        {stadiumGroups.map((sg) => {
+          const isActive = viewStadium === sg.id
+          return (
+            <button
+              key={sg.id}
+              className={`team-filter__chip${isActive ? ' team-filter__chip--stadium-active' : ''}`}
+              onClick={() => onStadiumChange(sg.id)}
+              aria-pressed={isActive}
+            >
+              {sg.name}
             </button>
           )
         })}
