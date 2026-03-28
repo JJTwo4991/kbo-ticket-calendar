@@ -1,0 +1,80 @@
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  background-color: var(--toss-white);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
+  background-color: var(--toss-white);
+  border-bottom: 1px solid var(--toss-gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--toss-gray-900);
+  letter-spacing: -0.3px;
+}
+
+.app-header__subtitle {
+  font-size: 13px;
+  color: var(--toss-gray-500);
+  margin-top: 2px;
+}
+
+.app-header__title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-header__icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--toss-gray-100);
+  color: var(--toss-gray-700);
+  font-size: 18px;
+  transition: background-color 0.15s ease;
+}
+
+.app-header__icon-btn:hover {
+  background-color: var(--toss-gray-200);
+}
+
+.app-header__my-team-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--toss-white);
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 32px;
+}

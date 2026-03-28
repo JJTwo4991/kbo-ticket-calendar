@@ -1,0 +1,233 @@
+.game-list {
+  padding: 20px 16px;
+}
+
+.game-list__header {
+  margin-bottom: 16px;
+}
+
+.game-list__date-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--toss-gray-900);
+  letter-spacing: -0.3px;
+}
+
+.game-list__count {
+  font-size: 13px;
+  color: var(--toss-gray-500);
+  margin-top: 3px;
+}
+
+.game-list__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.game-list__empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.game-list__empty-text {
+  font-size: 15px;
+  color: var(--toss-gray-500);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.game-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Game Card */
+.game-card {
+  background-color: var(--toss-white);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  border: 1.5px solid var(--toss-gray-200);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.game-card--my-team {
+  border-color: var(--toss-blue-light);
+}
+
+.game-card--my-team::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--toss-blue);
+  border-radius: 16px 0 0 16px;
+}
+
+.game-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.game-card__time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.game-card__time {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--toss-gray-900);
+}
+
+.game-card__my-team-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--toss-blue);
+  background-color: var(--toss-blue-light);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.game-card__alert-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background-color: var(--toss-gray-100);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  flex-shrink: 0;
+}
+
+.game-card__alert-btn:hover {
+  background-color: var(--toss-gray-200);
+}
+
+.game-card__alert-btn:active {
+  transform: scale(0.9);
+}
+
+.game-card__alert-btn--active {
+  background-color: var(--toss-blue-light);
+}
+
+.game-card__matchup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.game-card__team {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.game-card__team--away {
+  justify-content: flex-end;
+}
+
+.game-card__team--home {
+  justify-content: flex-start;
+}
+
+.game-card__team-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.game-card__team-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--toss-gray-800);
+}
+
+.game-card__team-name--my-team {
+  color: var(--toss-blue);
+}
+
+.game-card__home-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--toss-gray-500);
+  background-color: var(--toss-gray-100);
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.game-card__vs {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--toss-gray-400);
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.game-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--toss-gray-100);
+}
+
+.game-card__stadium {
+  font-size: 12px;
+  color: var(--toss-gray-500);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.game-card__stadium-icon {
+  font-size: 13px;
+}
+
+.game-card__ticket-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--toss-white);
+  background-color: var(--toss-blue);
+  padding: 7px 16px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.game-card__ticket-btn:hover {
+  background-color: var(--toss-blue-dark);
+}
+
+.game-card__ticket-btn:active {
+  transform: scale(0.97);
+}

@@ -1,0 +1,60 @@
+:root {
+  --toss-blue: #3182F6;
+  --toss-blue-dark: #2272EB;
+  --toss-blue-light: #E8F3FF;
+  --toss-gray-900: #202632;
+  --toss-gray-800: #333D4B;
+  --toss-gray-700: #4E5968;
+  --toss-gray-500: #8B95A1;
+  --toss-gray-400: #B0B8C1;
+  --toss-gray-200: #E6E9EC;
+  --toss-gray-100: #F5F5F5;
+  --toss-white: #FFFFFF;
+  --toss-green: #14C47E;
+  --toss-red: #F04452;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background-color: var(--toss-gray-100);
+  color: var(--toss-gray-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
