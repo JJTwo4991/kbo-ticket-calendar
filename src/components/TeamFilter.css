@@ -1,34 +1,41 @@
+/* ── Team filter bar ──────────────────────────────────── */
 .team-filter {
   background-color: var(--toss-white);
   border-bottom: 1px solid var(--toss-gray-200);
-  padding: 12px 0;
+  padding: 10px 0 11px;
+  /* Prevent content flash during scroll */
+  will-change: transform;
 }
 
 .team-filter__scroll {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   overflow-x: auto;
+  /* Horizontal padding creates breathing room at both edges */
   padding: 0 16px;
+  /* Snap first/last chip so they're never cut off */
+  scroll-padding: 0 16px;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  /* Hide scrollbar on all browsers */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .team-filter__scroll::-webkit-scrollbar {
   display: none;
 }
 
-.team-filter__scroll {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
+/* ── Individual chip ──────────────────────────────────── */
 .team-filter__chip {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 7px 14px;
-  border-radius: 20px;
+  /* 36px height: comfortable touch without being too tall */
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-full);
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
@@ -36,8 +43,15 @@
   border: 1.5px solid var(--toss-gray-200);
   background-color: var(--toss-white);
   color: var(--toss-gray-700);
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  letter-spacing: -0.2px;
+  transition:
+    background-color var(--ease-default),
+    color var(--ease-default),
+    border-color var(--ease-default),
+    box-shadow var(--ease-default),
+    transform 0.1s ease;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .team-filter__chip:hover {
@@ -46,34 +60,47 @@
 }
 
 .team-filter__chip:active {
-  transform: scale(0.96);
+  transform: scale(0.94);
 }
 
+/* Active chip: team color background (set via inline style) */
 .team-filter__chip--active {
   border-color: transparent;
   color: var(--toss-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .team-filter__chip--active:hover {
+  opacity: 0.9;
   background-color: inherit;
   border-color: transparent;
-  opacity: 0.9;
 }
 
+/* "전체" chip when active */
 .team-filter__chip--all-active {
   background-color: var(--toss-gray-900);
   border-color: var(--toss-gray-900);
   color: var(--toss-white);
+  box-shadow: 0 2px 8px rgba(25, 31, 40, 0.2);
 }
 
 .team-filter__chip--all-active:hover {
   background-color: var(--toss-gray-800);
   border-color: var(--toss-gray-800);
+  opacity: 1;
 }
 
+/* Colored dot inside chip */
 .team-filter__chip-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
+  /* When chip is active the dot gets a white ring */
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.4);
+}
+
+/* On inactive chips the dot has a subtle border */
+.team-filter__chip:not(.team-filter__chip--active) .team-filter__chip-dot {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 }

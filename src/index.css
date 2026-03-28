@@ -2,16 +2,41 @@
   --toss-blue: #3182F6;
   --toss-blue-dark: #2272EB;
   --toss-blue-light: #E8F3FF;
-  --toss-gray-900: #202632;
+  --toss-gray-900: #191F28;
   --toss-gray-800: #333D4B;
   --toss-gray-700: #4E5968;
   --toss-gray-500: #8B95A1;
   --toss-gray-400: #B0B8C1;
   --toss-gray-200: #E6E9EC;
-  --toss-gray-100: #F5F5F5;
+  --toss-gray-100: #F2F4F6;
   --toss-white: #FFFFFF;
   --toss-green: #14C47E;
   --toss-red: #F04452;
+
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Shadow scale */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.07), 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10), 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.06);
+
+  /* Border radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --ease-default: 0.2s ease;
+  --ease-spring: 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-sheet: 0.32s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 *,
@@ -24,19 +49,26 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
   background-color: var(--toss-gray-100);
   color: var(--toss-gray-900);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior: none;
+  /* Safe area for iOS home indicator */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 #root {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
 }
@@ -51,10 +83,25 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input,
 textarea,
 select {
   font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth tap feedback for all interactive elements */
+button:active,
+[role="button"]:active {
+  outline: none;
+}
+
+/* Remove default focus ring, add custom */
+:focus-visible {
+  outline: 2px solid var(--toss-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

@@ -1,71 +1,106 @@
+/* ── Game list wrapper ────────────────────────────────── */
 .game-list {
-  padding: 20px 16px;
+  padding: 16px 16px 8px;
 }
 
 .game-list__header {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  padding: 0 4px;
 }
 
 .game-list__date-title {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--toss-gray-900);
-  letter-spacing: -0.3px;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
 }
 
 .game-list__count {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--toss-gray-500);
   margin-top: 3px;
+  letter-spacing: -0.1px;
 }
 
+/* ── Empty state ──────────────────────────────────────── */
 .game-list__empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 64px 20px;
   text-align: center;
 }
 
 .game-list__empty-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-  opacity: 0.5;
+  font-size: 44px;
+  margin-bottom: 14px;
+  opacity: 0.35;
+  filter: grayscale(0.3);
 }
 
 .game-list__empty-text {
-  font-size: 15px;
-  color: var(--toss-gray-500);
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.5;
+  color: var(--toss-gray-400);
+  line-height: 1.6;
+  letter-spacing: -0.1px;
 }
 
 .game-list__items {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* Game Card */
+/* ── Game card ────────────────────────────────────────── */
 .game-card {
   background-color: var(--toss-white);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
-  border: 1.5px solid var(--toss-gray-200);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border-radius: var(--radius-lg);
+  padding: 16px 16px 14px;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid transparent;
+  transition:
+    transform var(--ease-default),
+    box-shadow var(--ease-default),
+    border-color var(--ease-default);
   position: relative;
   overflow: hidden;
+  /* Staggered card entrance */
+  animation: cardSlideUp 0.3s ease both;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .game-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
+.game-card:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-xs);
+}
+
+/* My-team card: left accent bar */
 .game-card--my-team {
   border-color: var(--toss-blue-light);
+  background: linear-gradient(
+    to right,
+    rgba(232, 243, 255, 0.5) 0%,
+    var(--toss-white) 60px
+  );
 }
 
 .game-card--my-team::before {
@@ -74,16 +109,17 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
+  width: 3px;
   background-color: var(--toss-blue);
-  border-radius: 16px 0 0 16px;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
 }
 
+/* ── Card top row: time + actions ─────────────────────── */
 .game-card__top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .game-card__time-row {
@@ -93,50 +129,71 @@
 }
 
 .game-card__time {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--toss-gray-900);
+  color: var(--toss-gray-700);
+  letter-spacing: -0.1px;
 }
 
+/* "내 팀" badge */
 .game-card__my-team-badge {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--toss-blue);
   background-color: var(--toss-blue-light);
-  padding: 2px 8px;
-  border-radius: 20px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  letter-spacing: -0.1px;
 }
 
+/* Alert bell — 44×44 touch target */
 .game-card__alert-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  background-color: var(--toss-gray-100);
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  font-size: 17px;
+  transition: background-color var(--ease-default), transform 0.1s ease;
   flex-shrink: 0;
+  position: relative;
+  color: var(--toss-gray-500);
+  margin: -8px -8px -8px 0;
 }
 
-.game-card__alert-btn:hover {
+.game-card__alert-btn::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--toss-gray-100);
+  transition: background-color var(--ease-default);
+  z-index: -1;
+}
+
+.game-card__alert-btn:hover::before {
   background-color: var(--toss-gray-200);
 }
 
 .game-card__alert-btn:active {
-  transform: scale(0.9);
+  transform: scale(0.88);
 }
 
 .game-card__alert-btn--active {
+  color: var(--toss-blue);
+}
+
+.game-card__alert-btn--active::before {
   background-color: var(--toss-blue-light);
 }
 
+/* ── Team matchup row ─────────────────────────────────── */
 .game-card__matchup {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .game-card__team {
@@ -144,6 +201,7 @@
   align-items: center;
   gap: 6px;
   flex: 1;
+  min-width: 0;
 }
 
 .game-card__team--away {
@@ -154,80 +212,108 @@
   justify-content: flex-start;
 }
 
+/* Team color swatch dot */
 .game-card__team-color {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.08);
 }
 
 .game-card__team-name {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--toss-gray-800);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .game-card__team-name--my-team {
   color: var(--toss-blue);
 }
 
+/* "홈" badge — pill */
 .game-card__home-badge {
   font-size: 10px;
   font-weight: 700;
   color: var(--toss-gray-500);
   background-color: var(--toss-gray-100);
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
+  letter-spacing: 0;
+  border: 1px solid var(--toss-gray-200);
 }
 
+/* VS divider */
 .game-card__vs {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--toss-gray-400);
   flex-shrink: 0;
-  width: 24px;
+  width: 28px;
   text-align: center;
+  letter-spacing: 0.5px;
 }
 
+/* ── Card bottom: stadium + ticket button ─────────────── */
 .game-card__bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 10px;
+  padding-top: 12px;
   border-top: 1px solid var(--toss-gray-100);
+  gap: 12px;
 }
 
 .game-card__stadium {
   font-size: 12px;
+  font-weight: 500;
   color: var(--toss-gray-500);
   display: flex;
   align-items: center;
   gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .game-card__stadium-icon {
-  font-size: 13px;
+  font-size: 12px;
+  flex-shrink: 0;
 }
 
+/* "예매하기" — pill button */
 .game-card__ticket-btn {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--toss-white);
   background-color: var(--toss-blue);
-  padding: 7px 16px;
-  border-radius: 8px;
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  transition: background-color var(--ease-default), transform 0.1s ease, box-shadow var(--ease-default);
   display: inline-flex;
   align-items: center;
   gap: 4px;
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: -0.2px;
+  box-shadow: 0 2px 8px rgba(49, 130, 246, 0.3);
+  /* Ensure 44px min touch target height */
+  min-height: 36px;
 }
 
 .game-card__ticket-btn:hover {
   background-color: var(--toss-blue-dark);
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.4);
 }
 
 .game-card__ticket-btn:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
+  box-shadow: 0 1px 4px rgba(49, 130, 246, 0.25);
 }

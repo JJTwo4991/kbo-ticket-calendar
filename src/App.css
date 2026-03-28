@@ -2,79 +2,122 @@
   width: 100%;
   max-width: 480px;
   min-height: 100vh;
-  background-color: var(--toss-white);
+  min-height: 100dvh;
+  background-color: var(--toss-gray-100);
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
+/* ── Header ──────────────────────────────────────────── */
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 20px 12px;
-  background-color: var(--toss-white);
-  border-bottom: 1px solid var(--toss-gray-200);
+  padding: 16px 20px 14px;
+  padding-top: calc(16px + env(safe-area-inset-top, 0px));
+  background-color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(230, 233, 236, 0.8);
   position: sticky;
   top: 0;
   z-index: 100;
-}
-
-.app-header__title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--toss-gray-900);
-  letter-spacing: -0.3px;
-}
-
-.app-header__subtitle {
-  font-size: 13px;
-  color: var(--toss-gray-500);
-  margin-top: 2px;
+  /* Subtle bottom shadow to separate from content */
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .app-header__title-group {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+}
+
+.app-header__title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--toss-gray-900);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.app-header__subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--toss-gray-500);
+  letter-spacing: -0.1px;
+  line-height: 1;
 }
 
 .app-header__actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
+/* Icon buttons — 44×44 touch target with 36px visible circle */
 .app-header__icon-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--toss-gray-100);
   color: var(--toss-gray-700);
   font-size: 18px;
-  transition: background-color 0.15s ease;
+  transition: background-color var(--ease-default), transform 0.1s ease;
+  /* Inset the visible bg so touch target is larger than the circle */
+  background-color: transparent;
+  position: relative;
 }
 
-.app-header__icon-btn:hover {
+.app-header__icon-btn::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--toss-gray-100);
+  transition: background-color var(--ease-default);
+  z-index: -1;
+}
+
+.app-header__icon-btn:hover::before {
   background-color: var(--toss-gray-200);
 }
 
+.app-header__icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* My team badge — pill with team color set via inline style */
 .app-header__my-team-badge {
+  display: inline-flex;
+  align-items: center;
   font-size: 12px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 20px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
   color: var(--toss-white);
-  max-width: 80px;
+  max-width: 88px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  letter-spacing: -0.2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  /* Smooth press feedback */
+  transition: opacity var(--ease-default), transform 0.1s ease;
 }
 
+.app-header__my-team-badge:active {
+  transform: scale(0.95);
+  opacity: 0.85;
+}
+
+/* ── Main content ─────────────────────────────────────── */
 .app-content {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 32px;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
 }
