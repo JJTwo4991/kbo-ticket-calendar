@@ -1,25 +1,13 @@
 import { getTicketInfo, teams } from '../data/teams'
+import type { Game, AlertSettingsData } from '../types'
 import './GameList.css'
-
-interface Game {
-  id: string
-  date: string
-  time: string
-  home: string
-  away: string
-  stadium?: string
-}
-
-interface AlertSettingsData {
-  enabled: boolean
-  timings: string[]
-}
 
 interface GameListProps {
   games: Game[]
   myTeam: string | null
   onToggleAlert: (gameId: string) => void
   alertSettings: AlertSettingsData
+  alertedGames: Set<string>
 }
 
 const KO_DAYS = ['일', '월', '화', '수', '목', '금', '토']
@@ -33,10 +21,7 @@ function formatDateHeader(dateStr: string): string {
 }
 
 export default function GameList({
-  games,
-  myTeam,
-  onToggleAlert,
-  alertSettings,
+  games, myTeam, onToggleAlert, alertSettings, alertedGames,
 }: GameListProps) {
   const dateHeader = games.length > 0 ? formatDateHeader(games[0].date) : ''
 
@@ -70,8 +55,8 @@ export default function GameList({
             const ticket = getTicketInfo(game.home)
             const stadium = game.stadium ?? homeTeam?.stadium ?? ''
 
-            // Alert active if settings are enabled and game involves myTeam
-            const alertActive = isMyTeamGame && alertSettings.enabled
+            // Alert active if settings are enabled and this specific game is alerted
+            const alertActive = isMyTeamGame && alertSettings.enabled && alertedGames.has(game.id)
 
             return (
               <div

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { teamIds, teams } from '../data/teams'
 import './MyTeamSetup.css'
 
@@ -29,22 +30,11 @@ export default function MyTeamSetup({ onSelect }: MyTeamSetupProps) {
                 style={
                   {
                     '--team-color': team.color,
-                  } as React.CSSProperties
+                  } as CSSProperties
                 }
                 onClick={() => onSelect(teamId)}
                 aria-label={`${team.name} 선택`}
               >
-                <span
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: 5,
-                    borderRadius: '14px 0 0 14px',
-                    backgroundColor: team.color,
-                  }}
-                />
                 <span className="my-team-setup__team-name">{team.name}</span>
                 <span className="my-team-setup__team-stadium">{team.stadium}</span>
               </button>

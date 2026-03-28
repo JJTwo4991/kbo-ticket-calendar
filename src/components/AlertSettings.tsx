@@ -1,9 +1,5 @@
+import type { AlertSettingsData } from '../types'
 import './AlertSettings.css'
-
-interface AlertSettingsData {
-  enabled: boolean
-  timings: string[]
-}
 
 interface AlertSettingsProps {
   settings: AlertSettingsData

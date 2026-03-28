@@ -6,29 +6,9 @@ import MyTeamSetup from './components/MyTeamSetup'
 import AlertSettings from './components/AlertSettings'
 import { teams } from './data/teams'
 import scheduleData from './data/schedule.json'
+import type { RawGame, Game, AlertSettingsData } from './types'
+import { setupBackHandler, parseDeepLink } from './lib/toss-bridge'
 import './App.css'
-
-interface RawGame {
-  date: string
-  time: string
-  home: string
-  away: string
-  stadium?: string
-}
-
-export interface Game {
-  id: string
-  date: string
-  time: string
-  home: string
-  away: string
-  stadium?: string
-}
-
-interface AlertSettingsData {
-  enabled: boolean
-  timings: string[]
-}
 
 function getTodayKey(): string {
   const d = new Date()
@@ -45,7 +25,7 @@ function loadAlertSettings(): AlertSettingsData {
   } catch {
     // ignore
   }
-  return { enabled: false, timings: ['1h'] }
+  return { enabled: false, timings: ['1시간 전'] }
 }
 
 export default function App() {
@@ -81,6 +61,15 @@ export default function App() {
 
   const [alertSettings, setAlertSettings] = useState<AlertSettingsData>(loadAlertSettings)
 
+  // 알림 설정된 경기 ID Set — localStorage에 영속화
+  const [alertedGames, setAlertedGames] = useState<Set<string>>(() => {
+    try {
+      const raw = localStorage.getItem('kbo-alerted-games')
+      if (raw) return new Set(JSON.parse(raw) as string[])
+    } catch { /* ignore */ }
+    return new Set()
+  })
+
   // Persist myTeam to localStorage
   function handleSelectMyTeam(teamId: string) {
     localStorage.setItem('kbo-my-team', teamId)
@@ -93,6 +82,29 @@ export default function App() {
     setAlertSettings(next)
     localStorage.setItem('kbo-alert-settings', JSON.stringify(next))
   }
+
+  // 딥링크로 날짜/팀 자동 설정
+  useEffect(() => {
+    const { date, team } = parseDeepLink()
+    if (date) {
+      setSelectedDate(date)
+      const parts = date.split('-').map(Number)
+      setCurrentMonth(new Date(parts[0], parts[1] - 1, 1))
+    }
+    if (team) {
+      setViewTeam(team)
+    }
+  }, [])
+
+  // 뒤로가기 처리
+  useEffect(() => {
+    const cleanup = setupBackHandler(() => {
+      if (showAlertSettings) {
+        setShowAlertSettings(false)
+      }
+    })
+    return cleanup
+  }, [showAlertSettings])
 
   // Sync viewTeam when myTeam is first set
   useEffect(() => {
@@ -139,11 +151,16 @@ export default function App() {
     // If switching to a team with games, keep current date or let user pick
   }
 
-  // Alert toggle — simply toggle the enabled flag for the game's alert
-  function handleToggleAlert(_gameId: string) {
-    handleAlertSettingsChange({
-      ...alertSettings,
-      enabled: !alertSettings.enabled,
+  function handleToggleAlert(gameId: string) {
+    setAlertedGames(prev => {
+      const next = new Set(prev)
+      if (next.has(gameId)) {
+        next.delete(gameId)
+      } else {
+        next.add(gameId)
+      }
+      localStorage.setItem('kbo-alerted-games', JSON.stringify([...next]))
+      return next
     })
   }
 
@@ -199,6 +216,7 @@ export default function App() {
           myTeam={myTeam}
           onToggleAlert={handleToggleAlert}
           alertSettings={alertSettings}
+          alertedGames={alertedGames}
         />
       </div>
 
