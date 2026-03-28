@@ -8,3 +8,4 @@ dist
 *.ait
 .DS_Store
 .omc
+tsconfig.tsbuildinfo
