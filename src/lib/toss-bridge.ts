@@ -46,14 +46,21 @@ export function setupBackHandler(onBack: () => void): () => void {
 }
 
 // 토스 앱 닫기
-export function closeApp(): void {
+export async function closeApp(): Promise<void> {
   if (!isTossWebView()) {
     window.history.back()
     return
   }
-  // TODO: @apps-in-toss/web-framework 설치 후 활성화
-  // import { closeView } from '@apps-in-toss/web-bridge'
-  // closeView()
+  try {
+    const mod = await import('@apps-in-toss/web-framework')
+    if (mod.closeView) {
+      await mod.closeView()
+    } else {
+      window.history.back()
+    }
+  } catch {
+    window.history.back()
+  }
 }
 
 // 딥링크 파라미터 파싱

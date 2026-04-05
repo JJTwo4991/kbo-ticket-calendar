@@ -1,0 +1,61 @@
+.standings-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--toss-white);
+  border-bottom: 1px solid var(--toss-gray-200);
+  cursor: pointer;
+  transition: background-color var(--ease-default);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.standings-banner:active {
+  background-color: var(--toss-gray-100);
+}
+
+.standings-banner__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.standings-banner__logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.standings-banner__team {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--toss-gray-900);
+}
+
+.standings-banner__stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.standings-banner__rank {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--toss-blue);
+}
+
+.standings-banner__record {
+  font-size: 13px;
+  color: var(--toss-gray-700);
+}
+
+.standings-banner__pct {
+  font-size: 13px;
+  color: var(--toss-gray-500);
+}
+
+.standings-banner__arrow {
+  font-size: 18px;
+  color: var(--toss-gray-400);
+}

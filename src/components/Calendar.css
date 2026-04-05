@@ -174,14 +174,31 @@
 }
 
 /* ── Game indicator dot ───────────────────────────────── */
+.calendar__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  min-height: 6px;
+  margin-top: 3px;
+}
+
 .calendar__game-dot {
   width: 6px;
   height: 6px;
   border-radius: var(--radius-full);
   background-color: var(--toss-blue);
-  margin-top: 3px;
   flex-shrink: 0;
   /* Pop-in animation when it appears */
+  animation: dotAppear 0.2s var(--ease-spring) both;
+}
+
+.calendar__ticket-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background-color: var(--toss-green);
+  flex-shrink: 0;
   animation: dotAppear 0.2s var(--ease-spring) both;
 }
 
@@ -196,9 +213,11 @@
   }
 }
 
-/* On selected date, dot becomes white so it stays visible */
-.calendar__day-btn--selected ~ .calendar__game-dot,
-.calendar__day-cell:has(.calendar__day-btn--selected) .calendar__game-dot {
+/* On selected date, dots become white so they stay visible */
+.calendar__day-btn--selected ~ .calendar__dots .calendar__game-dot,
+.calendar__day-btn--selected ~ .calendar__dots .calendar__ticket-dot,
+.calendar__day-cell:has(.calendar__day-btn--selected) .calendar__game-dot,
+.calendar__day-cell:has(.calendar__day-btn--selected) .calendar__ticket-dot {
   background-color: var(--toss-white);
 }
 

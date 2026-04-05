@@ -1,5 +1,6 @@
 import { getTicketInfo, teams } from '../data/teams'
-import type { Game, AlertSettingsData } from '../types'
+import { getTicketOpenInfo } from '../lib/ticket-utils'
+import type { Game, AlertSettingsData, TicketPolicy } from '../types'
 import './GameList.css'
 
 interface GameListProps {
@@ -8,6 +9,8 @@ interface GameListProps {
   onToggleAlert: (gameId: string) => void
   alertSettings: AlertSettingsData
   alertedGames: Set<string>
+  ticketOpenGames?: Game[]
+  ticketPolicies?: TicketPolicy[]
 }
 
 const KO_DAYS = ['일', '월', '화', '수', '목', '금', '토']
@@ -22,8 +25,10 @@ function formatDateHeader(dateStr: string): string {
 
 export default function GameList({
   games, myTeam, onToggleAlert, alertSettings, alertedGames,
+  ticketOpenGames, ticketPolicies,
 }: GameListProps) {
   const dateHeader = games.length > 0 ? formatDateHeader(games[0].date) : ''
+  const hasAnyContent = games.length > 0 || (ticketOpenGames?.length ?? 0) > 0
 
   return (
     <div className="game-list">
@@ -36,7 +41,7 @@ export default function GameList({
         )}
       </div>
 
-      {games.length === 0 ? (
+      {!hasAnyContent ? (
         <div className="game-list__empty">
           <div className="game-list__empty-icon">⚾</div>
           <div className="game-list__empty-text">
@@ -54,6 +59,7 @@ export default function GameList({
             const awayTeam = teams[game.away]
             const ticket = getTicketInfo(game.home)
             const stadium = game.stadium ?? homeTeam?.stadium ?? ''
+            const ticketInfo = ticketPolicies ? getTicketOpenInfo(game, ticketPolicies) : null
 
             // Alert active if settings are enabled and this specific game is alerted
             const alertActive = isMyTeamGame && alertSettings.enabled && alertedGames.has(game.id)
@@ -93,10 +99,7 @@ export default function GameList({
                       {awayTeam?.shortName ?? game.away}
                     </span>
                     {awayTeam && (
-                      <div
-                        className="game-card__team-color"
-                        style={{ backgroundColor: awayTeam.color }}
-                      />
+                      <img className="game-card__team-logo" src={awayTeam.logo} alt={awayTeam.shortName} width={28} height={28} />
                     )}
                   </div>
 
@@ -105,10 +108,7 @@ export default function GameList({
                   {/* Home team */}
                   <div className="game-card__team game-card__team--home">
                     {homeTeam && (
-                      <div
-                        className="game-card__team-color"
-                        style={{ backgroundColor: homeTeam.color }}
-                      />
+                      <img className="game-card__team-logo" src={homeTeam.logo} alt={homeTeam.shortName} width={28} height={28} />
                     )}
                     <span
                       className={`game-card__team-name${myTeam === game.home ? ' game-card__team-name--my-team' : ''}`}
@@ -119,25 +119,69 @@ export default function GameList({
                   </div>
                 </div>
 
-                {/* Bottom row: stadium + ticket button */}
+                {/* Bottom row: stadium + ticket status + ticket button */}
                 <div className="game-card__bottom">
                   <span className="game-card__stadium">
                     <span className="game-card__stadium-icon">📍</span>
                     {stadium}
                   </span>
-                  <a
-                    className="game-card__ticket-btn"
-                    href={ticket.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${ticket.platform}에서 예매하기`}
-                  >
-                    예매하기
-                  </a>
+                  <div className="game-card__bottom-right">
+                    {ticketInfo && (
+                      <span className={`game-card__ticket-status game-card__ticket-status--${ticketInfo.status}`}>
+                        {ticketInfo.status === 'open' ? '🎫' : ticketInfo.status === 'today' ? '🔥' : ticketInfo.status === 'tomorrow' ? '⏰' : '🎫'}
+                        {' '}{ticketInfo.label}
+                      </span>
+                    )}
+                    <a
+                      className={`game-card__ticket-btn${ticketInfo?.status === 'open' ? ' game-card__ticket-btn--open' : ''}`}
+                      href={ticketInfo?.platformUrl ?? ticket.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${ticket.platform}에서 예매하기`}
+                    >
+                      예매하기
+                    </a>
+                  </div>
                 </div>
               </div>
             )
           })}
+
+          {(ticketOpenGames?.length ?? 0) > 0 && (
+            <div className="game-list__ticket-open-section">
+              <div className="game-list__ticket-open-label">🎫 예매 오픈</div>
+              <div className="game-list__ticket-open-items">
+                {ticketOpenGames!.map((game) => {
+                  const homeTeam = teams[game.home]
+                  const awayTeam = teams[game.away]
+                  const ticket = getTicketInfo(game.home)
+                  const stadium = game.stadium ?? homeTeam?.stadium ?? ''
+                  const tInfo = ticketPolicies ? getTicketOpenInfo(game, ticketPolicies) : null
+                  const [yearStr, mmStr, ddStr] = game.date.split('-')
+                  const mm = Number(mmStr)
+                  const dd = Number(ddStr)
+                  const dow = KO_DAYS[new Date(Number(yearStr), mm - 1, dd).getDay()]
+                  return (
+                    <div key={`ticket-${game.id}`} className="ticket-open-card">
+                      <div className="ticket-open-card__info">
+                        <span className="ticket-open-card__date">{mm}월 {dd}일({dow}) {game.time}</span>
+                        <span className="ticket-open-card__matchup">{awayTeam?.shortName ?? game.away} vs {homeTeam?.shortName ?? game.home} 경기의 예매일이에요</span>
+                        <span className="ticket-open-card__stadium">📍 {stadium}</span>
+                        {tInfo && <span className="ticket-open-card__time">⏰ {tInfo.openTime} 오픈</span>}
+                      </div>
+                      <a className="ticket-open-card__btn" href={tInfo?.platformUrl ?? ticket.url} target="_blank" rel="noopener noreferrer">예매하기</a>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {hasAnyContent && (
+        <div className="game-list__disclaimer">
+          예매 일정은 구단 사정에 따라 변경될 수 있어요
         </div>
       )}
     </div>

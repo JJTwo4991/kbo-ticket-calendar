@@ -116,6 +116,15 @@
   opacity: 1;
 }
 
+/* Logo inside chip */
+.team-filter__chip-logo {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 /* Colored dot inside chip */
 .team-filter__chip-dot {
   width: 7px;

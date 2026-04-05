@@ -11,7 +11,7 @@ export default function MyTeamSetup({ onSelect }: MyTeamSetupProps) {
     <div className="my-team-setup" role="dialog" aria-modal="true" aria-label="응원 구단 선택">
       <div className="my-team-setup__header">
         <div className="my-team-setup__kbo-badge">
-          ⚾ KBO 티켓 캘린더
+          ⚾ 직관갈래
         </div>
         <h1 className="my-team-setup__title">응원하는 구단을<br />선택하세요</h1>
         <p className="my-team-setup__subtitle">
@@ -35,6 +35,7 @@ export default function MyTeamSetup({ onSelect }: MyTeamSetupProps) {
                 onClick={() => onSelect(teamId)}
                 aria-label={`${team.name} 선택`}
               >
+                <img className="my-team-setup__team-logo" src={team.logo} alt={team.shortName} width={40} height={40} />
                 <span className="my-team-setup__team-name">{team.name}</span>
                 <span className="my-team-setup__team-stadium">{team.stadium}</span>
               </button>

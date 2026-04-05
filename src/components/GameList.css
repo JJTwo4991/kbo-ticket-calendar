@@ -212,13 +212,13 @@
   justify-content: flex-start;
 }
 
-/* Team color swatch dot */
-.game-card__team-color {
-  width: 10px;
-  height: 10px;
-  border-radius: var(--radius-full);
+/* Team logo */
+.game-card__team-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
-  box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.08);
 }
 
 .game-card__team-name {
@@ -287,6 +287,49 @@
   flex-shrink: 0;
 }
 
+/* touch-action for vertical scroll inside cards */
+.game-card {
+  touch-action: pan-y;
+}
+
+/* ── Ticket status badge ──────────────────────────────── */
+.game-card__bottom-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.game-card__ticket-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  letter-spacing: -0.1px;
+}
+
+.game-card__ticket-status--open {
+  background-color: rgba(20, 196, 126, 0.12);
+  color: #0e9e6a;
+}
+
+.game-card__ticket-status--today {
+  background-color: rgba(240, 68, 82, 0.1);
+  color: var(--toss-red);
+}
+
+.game-card__ticket-status--tomorrow {
+  background-color: rgba(255, 153, 0, 0.12);
+  color: #cc7a00;
+}
+
+.game-card__ticket-status--not-yet {
+  background-color: var(--toss-gray-100);
+  color: var(--toss-gray-500);
+}
+
 /* "예매하기" — pill button */
 .game-card__ticket-btn {
   font-size: 13px;
@@ -316,4 +359,117 @@
 .game-card__ticket-btn:active {
   transform: scale(0.95);
   box-shadow: 0 1px 4px rgba(49, 130, 246, 0.25);
+}
+
+.game-card__ticket-btn--open {
+  background-color: var(--toss-green);
+  box-shadow: 0 2px 8px rgba(20, 196, 126, 0.3);
+}
+
+.game-card__ticket-btn--open:hover {
+  background-color: #0e9e6a;
+  box-shadow: 0 4px 12px rgba(20, 196, 126, 0.4);
+}
+
+/* ── Ticket open section (green box) ─────────────────── */
+.game-list__ticket-open-section {
+  background-color: rgba(20, 196, 126, 0.08);
+  border: 1.5px solid rgba(20, 196, 126, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 10px;
+  margin-top: 4px;
+}
+
+.game-list__ticket-open-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0e9e6a;
+  letter-spacing: -0.3px;
+  margin-bottom: 10px;
+}
+
+.game-list__ticket-open-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ticket-open-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background-color: var(--toss-white);
+  border-radius: var(--radius-md);
+  padding: 12px 12px;
+  box-shadow: var(--shadow-xs);
+}
+
+.ticket-open-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.ticket-open-card__date {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--toss-gray-600);
+  letter-spacing: -0.1px;
+}
+
+.ticket-open-card__matchup {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--toss-gray-900);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-open-card__stadium {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--toss-gray-500);
+}
+
+.ticket-open-card__time {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0e9e6a;
+}
+
+.ticket-open-card__btn {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--toss-white);
+  background-color: var(--toss-green);
+  padding: 7px 13px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color var(--ease-default), transform 0.1s ease;
+  box-shadow: 0 2px 6px rgba(20, 196, 126, 0.3);
+}
+
+.ticket-open-card__btn:hover {
+  background-color: #0e9e6a;
+}
+
+.ticket-open-card__btn:active {
+  transform: scale(0.95);
+}
+
+/* ── Disclaimer ───────────────────────────────────────── */
+.game-list__disclaimer {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--toss-gray-400);
+  text-align: center;
+  padding: 12px 16px 4px;
+  letter-spacing: -0.1px;
 }

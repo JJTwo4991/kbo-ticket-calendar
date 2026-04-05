@@ -4,6 +4,7 @@ interface CalendarProps {
   currentMonth: Date
   selectedDate: string
   gameDates: Set<string>
+  ticketOpenDates?: Set<string>
   onDateSelect: (date: string) => void
   onMonthChange: (month: Date) => void
 }
@@ -27,6 +28,7 @@ export default function Calendar({
   currentMonth,
   selectedDate,
   gameDates,
+  ticketOpenDates,
   onDateSelect,
   onMonthChange,
 }: CalendarProps) {
@@ -106,7 +108,8 @@ export default function Calendar({
           const isToday = !outside && dateKey === todayKey
           const isSelected = dateKey === selectedDate
           const hasGame = gameDates.has(dateKey)
-          const clickable = !outside && hasGame
+          const hasTicketOpen = ticketOpenDates?.has(dateKey) ?? false
+          const clickable = !outside && (hasGame || hasTicketOpen)
 
           let btnClass = 'calendar__day-btn'
           if (colIdx === 0) btnClass += ' calendar__day-btn--sun'
@@ -126,7 +129,12 @@ export default function Calendar({
               >
                 {day}
               </button>
-              <div className={`calendar__game-dot${hasGame && !outside ? '' : ' calendar__game-dot--hidden'}`} />
+              <div className="calendar__dots">
+                <div className={`calendar__game-dot${hasGame && !outside ? '' : ' calendar__game-dot--hidden'}`} />
+                {hasTicketOpen && !outside && (
+                  <div className="calendar__ticket-dot" title="예매 오픈일" />
+                )}
+              </div>
             </div>
           )
         })}

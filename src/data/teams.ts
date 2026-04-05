@@ -1,3 +1,14 @@
+import ssgLogo from '../assets/logos/ssg.svg'
+import lgLogo from '../assets/logos/lg.svg'
+import doosanLogo from '../assets/logos/doosan.svg'
+import kiwoomLogo from '../assets/logos/kiwoom.svg'
+import ktLogo from '../assets/logos/kt.svg'
+import ncLogo from '../assets/logos/nc.svg'
+import samsungLogo from '../assets/logos/samsung.svg'
+import lotteLogo from '../assets/logos/lotte.svg'
+import hanwhaLogo from '../assets/logos/hanwha.svg'
+import kiaLogo from '../assets/logos/kia.svg'
+
 export interface TeamInfo {
   id: string;
   name: string;
@@ -6,6 +17,7 @@ export interface TeamInfo {
   ticketUrl: string;
   ticketPlatform: string;
   color: string;
+  logo: string;
 }
 
 export const teams: Record<string, TeamInfo> = {
@@ -17,6 +29,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://ticket.ssg.com',
     ticketPlatform: 'SSG닷컴',
     color: '#CE0E2D',
+    logo: ssgLogo,
   },
   LG: {
     id: 'LG',
@@ -26,6 +39,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://www.ticketlink.co.kr/sports/137/59',
     ticketPlatform: '티켓링크',
     color: '#C30452',
+    logo: lgLogo,
   },
   두산: {
     id: '두산',
@@ -35,6 +49,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://ticket.interpark.com',
     ticketPlatform: '놀티켓',
     color: '#131230',
+    logo: doosanLogo,
   },
   키움: {
     id: '키움',
@@ -44,6 +59,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://ticket.interpark.com',
     ticketPlatform: '놀티켓',
     color: '#820024',
+    logo: kiwoomLogo,
   },
   KT: {
     id: 'KT',
@@ -53,6 +69,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://www.ticketlink.co.kr/sports/137/62',
     ticketPlatform: '티켓링크',
     color: '#000000',
+    logo: ktLogo,
   },
   NC: {
     id: 'NC',
@@ -62,6 +79,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://ticket.ncdinos.com',
     ticketPlatform: 'NC다이노스',
     color: '#315288',
+    logo: ncLogo,
   },
   삼성: {
     id: '삼성',
@@ -71,6 +89,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://www.ticketlink.co.kr/sports/137/57',
     ticketPlatform: '티켓링크',
     color: '#074CA1',
+    logo: samsungLogo,
   },
   롯데: {
     id: '롯데',
@@ -80,6 +99,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://www.giantsclub.com/html/?pcode=339',
     ticketPlatform: '롯데자이언츠',
     color: '#002955',
+    logo: lotteLogo,
   },
   한화: {
     id: '한화',
@@ -89,6 +109,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://www.ticketlink.co.kr/sports/137/63',
     ticketPlatform: '티켓링크',
     color: '#FF6600',
+    logo: hanwhaLogo,
   },
   KIA: {
     id: 'KIA',
@@ -98,6 +119,7 @@ export const teams: Record<string, TeamInfo> = {
     ticketUrl: 'https://www.ticketlink.co.kr/sports/137/58',
     ticketPlatform: '티켓링크',
     color: '#EA0029',
+    logo: kiaLogo,
   },
 };
 

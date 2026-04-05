@@ -1,0 +1,9 @@
+.banner-ad {
+  width: 100%;
+  padding: 8px 0;
+}
+
+.banner-ad__container {
+  width: 100%;
+  min-height: 96px;
+}

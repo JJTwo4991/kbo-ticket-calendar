@@ -1,0 +1,53 @@
+.season-report {
+  padding: 20px;
+  background: var(--toss-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.season-report__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--toss-gray-900);
+  margin-bottom: 16px;
+}
+
+.season-report__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.season-report__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 8px;
+  background: var(--toss-gray-100);
+  border-radius: var(--radius-md);
+}
+
+.season-report__card-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--toss-blue);
+}
+
+.season-report__card-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--toss-gray-500);
+}
+
+.season-report__card-sub {
+  font-size: 11px;
+  color: var(--toss-gray-400);
+}
+
+.season-report__detail {
+  text-align: center;
+  font-size: 13px;
+  color: var(--toss-gray-500);
+  margin-top: 12px;
+}

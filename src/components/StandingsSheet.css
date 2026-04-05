@@ -1,0 +1,136 @@
+.standings-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.standings-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.2s ease;
+}
+
+.standings-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  background: var(--toss-white);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  overflow-y: auto;
+  animation: slideUp var(--ease-sheet);
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+}
+
+.standings-sheet__handle {
+  width: 36px;
+  height: 4px;
+  background: var(--toss-gray-200);
+  border-radius: var(--radius-full);
+  margin: 12px auto 0;
+}
+
+.standings-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+}
+
+.standings-sheet__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--toss-gray-900);
+}
+
+.standings-sheet__close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--toss-gray-500);
+  background: var(--toss-gray-100);
+}
+
+.standings-sheet__body {
+  padding: 0 20px;
+}
+
+.standings-table { width: 100%; }
+
+.standings-table__head {
+  display: grid;
+  grid-template-columns: 36px 1fr 32px 32px 32px 48px 48px;
+  gap: 4px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--toss-gray-200);
+}
+
+.standings-table__th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--toss-gray-500);
+  text-align: center;
+}
+
+.standings-table__th--rank { text-align: center; }
+.standings-table__th--team { text-align: left; padding-left: 4px; }
+
+.standings-table__row {
+  display: grid;
+  grid-template-columns: 36px 1fr 32px 32px 32px 48px 48px;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--toss-gray-100);
+  align-items: center;
+}
+
+.standings-table__row--my-team {
+  background-color: var(--toss-blue-light);
+  border-radius: var(--radius-sm);
+  margin: 0 -8px;
+  padding: 10px 8px;
+}
+
+.standings-table__td {
+  font-size: 13px;
+  color: var(--toss-gray-800);
+  text-align: center;
+}
+
+.standings-table__td--rank {
+  font-weight: 700;
+  color: var(--toss-gray-900);
+  text-align: center;
+}
+
+.standings-table__td--team {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.standings-table__logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.standings-sheet__updated {
+  text-align: center;
+  font-size: 12px;
+  color: var(--toss-gray-400);
+  padding: 16px 0 8px;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
